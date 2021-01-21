@@ -1,0 +1,14 @@
+cluster_node:
+  hosts:
+   localhost.localdomain
+  vars:
+   ceph_toolbox_pod_name: "tooldbox_pod_name"
+   pv_list:
+     - { "pv1" }
+     - { "pv2" }
+     - { "pv3" }
+   pvc_list:
+     - { "pvc1" }
+     - { "pvc2" }
+     - { "pvc3" }
+

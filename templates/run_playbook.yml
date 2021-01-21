@@ -1,0 +1,10 @@
+- hosts: cluster_node
+  connection: local
+  remote_user: root
+  gather_facts: no
+  tasks:
+    - block:
+      - name: Reconfigure Ceph Cluster
+        include_role:
+          name: OCS-bypass-cluster-limit
+
