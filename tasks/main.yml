@@ -1,0 +1,30 @@
+---
+- name: RSH into toolbox pod
+  shell: >
+      oc rsh {{ ceph_toolbox_pod_name }}
+  run_once: true
+
+- name: Check the full ratio
+  shell: >
+      ceph pg dump | grep -i full
+  register: full_ratio
+
+- name: Increase FULL ratio
+  shell: >
+    ceph pg set_full_ratio 0.97
+  run_once: true
+
+- name: Verify if full ration is set to 97%
+  shell: >
+    ceph pg dump | grep -i full
+  run_once: increased_full_ratio
+
+- name:  Delete the Unused PVC and PV
+  shell: >
+    echo "Deleted"
+  run_once: true
+
+- name: Resetting back to original ratio
+  shell: >
+      ceph pg set_full_ratio 0.95
+  run_once: true
