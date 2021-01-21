@@ -1,4 +1,4 @@
-ClusterSize
+OCS-bypass-cluster-limit
 =========
 
 This Ansible role can be used when your cluster capacity passes the ocs threshold of 85% and you essentially cannot delete your pvc or pv, because the cluster will go full 'read-only' mode, essentially not allowing to delete pvc or pv.
@@ -6,7 +6,9 @@ This Ansible role can be used when your cluster capacity passes the ocs threshol
 Requirements
 ------------
 You need to:-
+
 [1] Install ceph toolbox into your openshift cluster.
+
 [2] oc login to your cluster, wherever this ansible roles is going to be executed
 
 Role Variables
@@ -14,7 +16,9 @@ Role Variables
 This Ansible Role requires the following variables as input:
 
 [1] Ceph toolboc pod name
+
 [2] List of pvc you want to delete
+
 [3] List of PV you want to erase
 
 Dependencies
