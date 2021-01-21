@@ -15,6 +15,14 @@ Role Variables
 --------------
 This Ansible Role requires the following variables as input:
 
+
+| Name                     | Required? | Choices| Default value         | Comments                          |
+|--------------------------|----|---|-----------------------|-----------------------------------|
+| ceph_toolbox_pod_name | Yes |  | UNDEF   | Ceph toolboc pod name |
+| pv_list | Yes|  | UNDEF | List of pv to be deleted. |
+| pvc_list | Yes | | UNDEF | TList of PV you want to erase.|
+
+
 [1] Ceph toolboc pod name
 
 [2] List of pvc you want to delete
@@ -29,7 +37,8 @@ Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
+```
+---
 - hosts: cluster_node
   connection: local
   remote_user: root
@@ -40,6 +49,8 @@ Including an example of how to use your role (for instance, with variables passe
         include_role:
           name: OCS-bypass-cluster-limit
 _____________
+```
+```
 
 vars.yml:-
 ---
@@ -56,7 +67,7 @@ cluster_node:
      - { "pvc1" }
      - { "pvc2" }
      - { "pvc3" }
-
+```
 
 License
 -------
