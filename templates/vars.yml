@@ -2,13 +2,12 @@ cluster_node:
   hosts:
    localhost.localdomain
   vars:
-   ceph_toolbox_pod_name: "tooldbox_pod_name"
+   ceph_toolbox_pod_name: "rook-ceph-tools-776b5fb7fb-rg6vr"
    pv_list:
-     - { "pv1" }
-     - { "pv2" }
-     - { "pv3" }
+     - "pvc-e01c8d8e-fbc1-46a4-9a86-6e4c654906e3"
+     - "pvc-ac66e056-db52-4f65-83e0-2bb163754e8e"
+     - "pvc-fde432f7-45a1-485b-8337-7bb9b801f34e"
    pvc_list:
-     - { "pvc1" }
-     - { "pvc2" }
-     - { "pvc3" }
-
+     - "prajith-test-1"
+     - "prajith-test-2"
+     - "prajith-test-3"

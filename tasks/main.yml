@@ -1,38 +1,43 @@
 ---
 - name: RSH into toolbox pod Updated
   shell: >
-      oc exec {{ ceph_toolbox_pod_name }}
+      oc exec {{ ceph_toolbox_pod_name }} -- bash -c 'ls'
   run_once: true
 
 - name: Check the full ratio
   shell: >
-       oc exec {{ ceph_toolbox_pod_name }} 'ceph pg dump | grep -i full'
+       oc exec {{ ceph_toolbox_pod_name }}  -- bash -c 'ceph pg dump | grep -i full'
   register: full_ratio
+  ignore_errors: yes
 
 - name: Increase FULL ratio
   shell: >
-    oc exec {{ ceph_toolbox_pod_name }} 'ceph pg set_full_ratio 0.97'
+    oc exec {{ ceph_toolbox_pod_name }}  -- bash -c  'ceph osd set-full-ratio 0.97'
   run_once: true
+  ignore_errors: yes
 
 - name: Verify if full ration is set to 97%
   shell: >
-      oc exec {{ ceph_toolbox_pod_name }} 'ceph pg dump | grep -i full'
+      oc exec {{ ceph_toolbox_pod_name }}  -- bash -c  'ceph pg dump | grep -i full'
   run_once: increased_full_ratio
+  ignore_errors: yes
 
 - name:  Delete the Unused PVC and PV
   shell: >
     oc delete pvc "{{ item }}"
-  loop:
-    - "{{ pvc_list }}"
+  with_items: "{{ pvc_list }}"
+  ignore_errors: yes
 
 - name: Delete the unused PV
   shell: >
     oc delete pv "{{ item }}"
-  loop:
-    - "{{ pv_list }}"
+  with_items: "{{ pv_list }}"
+
   run_once: true
+  ignore_errors: yes
 
 - name: Resetting back to original ratio
   shell: >
-      oc exec {{ ceph_toolbox_pod_name }} 'ceph pg set_full_ratio 0.95'
+      oc exec {{ ceph_toolbox_pod_name }}  -- bash -c 'ceph osd set-full-ratio 0.95'
   run_once: true
+  ignore_errors: yes
