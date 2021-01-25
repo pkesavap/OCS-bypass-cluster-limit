@@ -19,7 +19,6 @@ This Ansible Role requires the following variables as input:
 | Name                     | Required? | Choices| Default value         | Comments                          |
 |--------------------------|----|---|-----------------------|-----------------------------------|
 | ceph_toolbox_pod_name | Yes |  | UNDEF   | Ceph toolboc pod name |
-| pv_list | Yes|  | UNDEF | List of pv to be deleted. |
 | pvc_list | Yes | | UNDEF | TList of PV you want to erase.|
 
 
@@ -27,7 +26,6 @@ This Ansible Role requires the following variables as input:
 
 [2] List of pvc you want to delete
 
-[3] List of PV you want to erase
 
 Dependencies
 ------------
@@ -59,10 +57,6 @@ cluster_node:
    localhost.localdomain
   vars:
    ceph_toolbox_pod_name: "tooldbox_pod_name"
-   pv_list:
-     - { "pv1" }
-     - { "pv2" }
-     - { "pv3" }
    pvc_list:
      - { "pvc1" }
      - { "pvc2" }
