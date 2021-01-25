@@ -1,7 +1,7 @@
 OCS-bypass-cluster-limit
 =========
 
-This Ansible role can be used when your cluster capacity passes the ocs threshold of 85% and you essentially cannot delete your pvc or pv, because the cluster will go full 'read-only' mode, essentially not allowing to delete pvc or pv.
+This Ansible role can be used to delete the unused PV/PVC , when your cluster capacity passes the ocs threshold of 85% and you cannot delete your pvc or pv, because the cluster will go full 'read-only' mode
 
 Requirements
 ------------
