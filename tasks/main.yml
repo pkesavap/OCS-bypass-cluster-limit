@@ -1,4 +1,9 @@
 ---
+- name: Switch to openshift-storage project
+  shell: >
+    oc project openshift-storage
+  run_once: true
+
 - name: RSH into toolbox pod Updated
   shell: >
       oc exec {{ ceph_toolbox_pod_name }} -- bash -c 'ls'
@@ -22,6 +27,20 @@
   run_once: increased_full_ratio
   ignore_errors: yes
 
+- name: Switch to default project
+  shell: >
+    oc project default
+  run_once: true
+
+- name: Binding Interfaces
+  shell: >
+    oc get pvc | grep "{{ item }}" | awk '{ print $3}'
+  register: pv_list
+  with_items: "{{ pvc_list }}"
+  ignore_errors: yes
+
+- debug: var=pv_list.results
+
 - name:  Delete the Unused PVC and PV
   shell: >
     oc delete pvc "{{ item }}"
@@ -30,11 +49,15 @@
 
 - name: Delete the unused PV
   shell: >
-    oc delete pv "{{ item }}"
-  with_items: "{{ pv_list }}"
-
+    oc delete pv "{{ item.stdout }}"
+  with_items: "{{ pv_list.results }}"
   run_once: true
   ignore_errors: yes
+
+- name: Switch to openshift-storage project
+  shell: >
+    oc project openshift-storage
+  run_once: true
 
 - name: Resetting back to original ratio
   shell: >
